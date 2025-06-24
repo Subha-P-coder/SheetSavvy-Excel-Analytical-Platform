@@ -21,14 +21,14 @@
 ### 🔧 Frontend
 - React.js (Vite)
 - Chart.js, Plotly.js
-- Tailwind CSS
+- CSS
 - Axios, React Router
 
 ### 🔧 Backend
 - Node.js + Express
 - MongoDB + Mongoose
 - Multer for file uploads
-- OpenRouter/OpenAI for AI insights
+- OpenRouter for AI insights
 - JWT-based Authentication
 
 ---
@@ -90,11 +90,11 @@ npm run server
 
 Create a .env file inside the server/ folder:
 
-MONGO_URI=your_mongodb_connection_string
+MONGO_URI = your_mongodb_connection_string
 
-JWT_SECRET=your_jwt_secret
+JWT_SECRET = your_jwt_secret
 
-OPENROUTER_API_KEY=your_openrouter_or_openai_api_key
+OPENROUTER_API_KEY = your_openrouter_key
 
 Tip: Never commit .env files to GitHub. Use a .gitignore.
 
@@ -103,9 +103,9 @@ You can create a .env.example like this to help contributors set up the project:
 
 
 # .env.example
-MONGO_URI=your_mongo_db_uri_here
-JWT_SECRET=your_jwt_secret_key
-OPENROUTER_API_KEY=your_openrouter_api_key
+MONGO_URI = your_mongo_db_uri_here
+JWT_SECRET = your_jwt_secret_key
+OPENROUTER_API_KEY = your_openrouter_api_key
 
 ---
 
@@ -141,7 +141,7 @@ You can add UI screenshots or demo GIFs here to showcase features.
 
 ---
 
-🛡 License
+## 🛡 License
 
 This project is licensed under the MIT License.
 Feel free to fork and enhance it for your own use.
