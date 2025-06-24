@@ -1,0 +1,231 @@
+.history-container {
+  padding: 1.5rem;
+  color: white;
+}
+.history-title {
+  font-size: 3rem;
+  font-weight: 700;
+  margin-bottom: 1.5rem;
+  text-align: center;
+  color: rgb(38, 0, 255);
+}
+.history-grid {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 24px;
+  padding: 20px;
+  justify-content: center;
+}
+
+/* Medium devices (tablets, 768px and up) */
+@media (min-width: 768px) {
+  .history-grid {
+    grid-template-columns: repeat(2, 1fr);
+  }
+}
+
+/* Large devices (desktops, 1024px and up) */
+@media (min-width: 1024px) {
+  .history-grid {
+    grid-template-columns: repeat(3, 1fr);
+  }
+}
+
+
+
+
+/* history-card */
+
+.history-card {
+  background-color: #ffffff;
+  color: #1a1a1a;
+  border-radius: 16px;
+  padding: 24px;
+  margin: 16px;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+  transition: transform 0.2s ease, box-shadow 0.2s ease;
+  width: 100%;
+  max-width: 360px;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+}
+
+.history-card:hover {
+  transform: translateY(-6px);
+  box-shadow: 0 6px 18px rgba(0, 0, 0, 0.15);
+}
+
+.history-card h3 {
+  font-size: 20px;
+  margin-bottom: 12px;
+  color: #333;
+}
+
+.history-card p {
+  font-size: 14px;
+  margin: 6px 0;
+  color: #555;
+}
+
+.card-buttons {
+  margin-top: 20px;
+  display: flex;
+  justify-content: space-between;
+}
+
+.view-btn,
+.delete-btn {
+  padding: 10px 18px;
+  font-size: 14px;
+  font-weight: 600;
+  border: none;
+  border-radius: 8px;
+  cursor: pointer;
+  transition: background-color 0.2s ease;
+}
+
+.view-btn {
+  background-color: #28a745;
+  color: white;
+}
+
+.view-btn:hover {
+  background-color: #218838;
+}
+
+.delete-btn {
+  background-color: #dc3545;
+  color: white;
+}
+
+.delete-btn:hover {
+  background-color: #b02a37;
+}
+
+
+.toggle-data-btn {
+  margin-top: 10px;
+  padding: 8px 14px;
+  background-color: #007bff;
+  color: white;
+  border-radius: 8px;
+  font-size: 13px;
+  border: none;
+  cursor: pointer;
+  transition: background-color 0.2s ease;
+}
+
+.toggle-data-btn:hover {
+  background-color: #0056b3;
+}
+
+.data-preview-table {
+  margin-top: 10px;
+  overflow-x: auto;
+}
+
+.data-preview-table table {
+  width: 100%;
+  border-collapse: collapse;
+  font-size: 13px;
+}
+
+.data-preview-table th,
+.data-preview-table td {
+  border: 1px solid #ccc;
+  padding: 6px 10px;
+  text-align: left;
+}
+
+b/* Outer background */
+body.dark-theme .history-page {
+  background: linear-gradient(160deg, #1a1a2e, #0f3460);
+  color: #f1f1f1;
+  min-height: 100vh;
+  padding: 1rem;
+}
+
+/* Navbar Heading or Title */
+body.dark-theme .history-heading {
+  color: #f1f1f1;
+  font-size: 1.8rem;
+  margin-bottom: 1rem;
+  text-align: center;
+}
+
+/* History Content Wrapper */
+body.dark-theme .history-content {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 1rem;
+  justify-content: center;
+}
+
+/* Individual Card */
+body.dark-theme .history-card {
+  background-color: rgba(255, 255, 255, 0.05);
+  color: #f1f1f1;
+  border: 1px solid #444;
+  border-radius: 12px;
+  padding: 1rem;
+  width: 300px;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.3);
+  transition: transform 0.2s ease;
+}
+
+body.dark-theme .history-card:hover {
+  background-color: rgba(255, 255, 255, 0.1);
+  transform: translateY(-4px);
+}
+
+/* File info inside card */
+body.dark-theme .history-card p {
+  margin: 0.3rem 0;
+  font-size: 0.95rem;
+  color: white
+}
+
+/* Delete button */
+body.dark-theme .history-delete-btn {
+  background-color: #e94560;
+  color: #fff;
+  border: none;
+  padding: 0.4rem 0.8rem;
+  border-radius: 6px;
+  cursor: pointer;
+  margin-top: 0.5rem;
+  font-weight: 500;
+}
+
+body.dark-theme .history-delete-btn:hover {
+  background-color: #ff5e78;
+}
+
+/* Scrollbar styling*/
+body.dark-theme ::-webkit-scrollbar {
+  width: 8px;
+}
+
+body.dark-theme ::-webkit-scrollbar-thumb {
+  background: #888;
+  border-radius: 4px;
+}
+
+body.dark-theme ::-webkit-scrollbar-thumb:hover {
+  background: #aaa;
+}
+
+body.dark-theme .file-name {
+  color: #00bcd4; 
+  font-weight: 600;
+}
+
+.graph-filename {
+  font-size: 1.2rem;
+  margin-bottom: 1rem;
+}
+
+body.dark-theme .graph-filename {
+  color: #ff9800;
+}

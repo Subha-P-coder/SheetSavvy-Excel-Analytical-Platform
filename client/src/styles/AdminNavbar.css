@@ -1,0 +1,67 @@
+.admin-navbar {
+  background: linear-gradient(135deg, #7209b7, #560bad);
+  padding: 10px 30px;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  color: white;
+  height: 50px;
+  position: sticky;
+  top: 0;
+  z-index: 100;
+  margin-left: 240px; 
+}
+
+/* Logo Section */
+.admin-navbar-logo {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+}
+
+.admin-logo {
+  width: 36px;
+  height: 36px;
+  object-fit: contain;
+}
+
+.brand {
+  font-size: 1.4rem;
+  font-weight: 600;
+  color: #ffffff;
+  letter-spacing: 1px;
+}
+
+.brand .highlight {
+  color: #00f5d4;
+}
+
+/* Right section with welcome, dark mode, logout */
+.admin-navbar-right {
+  display: flex;
+  align-items: center;
+  gap: 20px;
+  font-size: 1rem;
+  font-weight: 500;
+  color: #f1f1f1;
+}
+
+.nav-icon {
+  background: none;
+  border: none;
+  color: white;
+  font-size: 18px;
+  cursor: pointer;
+  transition: transform 0.2s ease;
+}
+
+.nav-icon:hover {
+  transform: scale(1.2);
+}
+
+/* Dark Theme Support */
+body.dark-theme .admin-navbar {
+  background: linear-gradient(160deg, #1a1a2e, #0f3460);
+  color: #f1f1f1;
+  border-color: #333;
+}

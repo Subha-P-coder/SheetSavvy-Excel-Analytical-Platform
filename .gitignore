@@ -1,0 +1,25 @@
+# Node modules (client + server)
+client/node_modules/
+server/node_modules/
+
+# Build output
+client/dist/
+server/dist/
+
+# Logs
+*.log
+
+# OS-specific
+.DS_Store
+Thumbs.db
+
+# dotenv files (for secrets)
+client/.env
+server/.env
+
+# VSCode settings
+.vscode/
+
+# Cache
+client/.parcel-cache/
+server/.parcel-cache/

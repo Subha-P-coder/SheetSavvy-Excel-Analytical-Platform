@@ -1,0 +1,117 @@
+/* Page Wrapper */
+.settings-page-wrapper {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  padding: 60px 60px;
+  min-height: 100vh;
+}
+
+/* Settings Card Container */
+.settings-container {
+  background: linear-gradient(135deg, #7209b7, #560bad);
+  padding: 40px 60px 40px 40px;;
+  border-radius: 12px;
+  width: 100%;
+  max-width: 600px;
+  box-shadow: 0 8px 20px rgba(0, 0, 0, 0.2);
+  color: #ffffff; 
+}
+
+/* Section Title */
+.settings-title {
+  font-size: 28px;
+  font-weight: bold;
+  color: #fff;
+  margin-bottom: 24px;
+  text-align: center;
+}
+
+/* Subsection */
+.settings-section {
+  margin-bottom: 32px;
+}
+
+/* Subsection Title */
+.settings-section h3 {
+  font-size: 18px;
+  margin-bottom: 12px;
+  color: #f0f0f0; 
+}
+
+/* Inputs */
+.settings-input {
+  width: 100%;
+  padding: 12px 14px;
+  font-size: 15px;
+  border-radius: 8px;
+  border: 1px solid #ccc;
+  margin-bottom: 12px;
+  transition: border-color 0.2s ease;
+  background-color: #ffffff;
+  color: #000;
+}
+
+.settings-input::placeholder {
+  color: #888;
+}
+
+.settings-input:focus {
+  border-color: #ffffff;
+  outline: none;
+}
+
+/* Buttons */
+.settings-button {
+  padding: 10px 16px;
+  border: none;
+  border-radius: 6px;
+  font-weight: 600;
+  font-size: 15px;
+  cursor: pointer;
+  transition: background-color 0.3s ease;
+  margin-top: 4px;
+}
+
+/* Button Colors */
+.blue-button {
+  background-color: #3b82f6;
+  color: #fff;
+}
+.blue-button:hover {
+  background-color: #2563eb;
+}
+
+.green-button {
+  background-color: #22c55e;
+  color: #fff;
+}
+.green-button:hover {
+  background-color: #16a34a;
+}
+
+.red-button {
+  background-color: #ef4444;
+  color: #fff;
+}
+.red-button:hover {
+  background-color: #dc2626;
+}
+
+/* Danger Section */
+.danger-section {
+  border-top: 1px solid #ddd;
+  padding-top: 20px;
+}
+
+/* Responsive */
+@media (max-width: 640px) {
+  .settings-container {
+    padding: 24px;
+  }
+}
+
+
+body.dark-theme .settings-container{
+   background: linear-gradient(160deg, #1a1a2e, #0f3460);
+}
