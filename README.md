@@ -145,3 +145,21 @@ You can add UI screenshots or demo GIFs here to showcase features.
 
 This project is licensed under the MIT License.
 Feel free to fork and enhance it for your own use.
+
+---
+
+## 🙋‍♂️ Author
+
+**Subha Pandiyarajan**  
+
+GitHub: [@Subha-P-coder](https://github.com/Subha-P-coder)  
+Email: [psubha678@gmail.com](mailto:psubha678@gmail.com)
+
+
+---
+
+## ⭐ Support
+
+If you found this project helpful, please ⭐ star it or share it!
+
+Made with 💡 and ☕ by Subha Pandiyarajan
