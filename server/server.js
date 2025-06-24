@@ -9,7 +9,7 @@ import userRoutes from "./routes/userRoutes.js"
 import excelRoutes from './routes/excelRoutes.js';
 import adminRoutes from './routes/adminRoutes.js';
 
-const allowedOrigins = ['http://localhost:5174']
+const allowedOrigins = ['http://localhost:5173']
 
 const app =express();
 const port = process.env.PORT || 4000;
