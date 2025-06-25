@@ -1,10 +1,10 @@
-/* Main Layout */
+/* === Layout === */
 .admin-layout {
   display: flex;
   flex-direction: column;
   height: 100vh;
-  background-color: #f5f7fa;
-  color: #222;
+  background: linear-gradient(135deg, #0f2027, #203a43, #2c5364);
+  color: #f5f5f5;
 }
 
 .admin-body {
@@ -13,107 +13,83 @@
   overflow: hidden;
 }
 
-/* Main Content Area */
 .admin-main-content {
   flex: 1;
-  padding: 3rem 2rem;
-  overflow-y: auto;
-  background-color: #f5f7fa;
-}
-
-/* Section Title */
-.section-title {
-  font-size: 2.25rem;
-  font-weight: 700;
-  color: #ffffff;
-  border-left: 6px solid #00ffff;
-  padding-left: 14px;
-}
-
-/* Analytics Grid - Single Column Layout */
-.analytics-grid {
-  display: flex;
-  flex-direction: column;
-  gap: 2.5rem;
-}
-
-/* Chart Cards */
-.chart-card {
-  background: linear-gradient(160deg, #3a0ca3, #7209b7);
-  border-radius: 16px;
   padding: 2rem;
-  box-shadow: 0 8px 24px rgba(0, 0, 0, 0.05);
-  display: flex;
-  flex-direction: column;
-  transition: box-shadow 0.3s ease, transform 0.2s ease;
-  
+  overflow-y: auto;
 }
 
-.analytics-grid .chart-card:last-child {
+/* === Title === */
+.section-title {
+  font-size: 2rem;
+  font-weight: 700;
   margin-bottom: 2rem;
+  color: #00ffff;
+  border-left: 5px solid #00ffff;
+  padding-left: 12px;
+}
+
+/* === Grid === */
+.analytics-grid {
+  display: grid;
+  grid-template-columns: 1fr;
+  gap: 2rem;
+  padding-bottom: 2rem;
+}
+
+/* === Card === */
+.chart-card {
+  background: linear-gradient(145deg, #1e2a38, #2e3c4e);
+  padding: 1.75rem;
+  border-radius: 16px;
+  box-shadow: 0 10px 25px rgba(0, 0, 0, 0.3);
+  transition: transform 0.2s ease, box-shadow 0.3s ease;
 }
 
 .chart-card:hover {
-  box-shadow: 0 14px 32px rgba(0, 0, 0, 0.08);
-  transform: translateY(-4px);
+  transform: translateY(-6px);
+  box-shadow: 0 15px 35px rgba(0, 0, 0, 0.4);
 }
 
 .chart-card h3 {
-  font-size: 1.4rem;
-  font-weight: 600;
+  font-size: 1.2rem;
   margin-bottom: 1rem;
-  color: #fdfdfd;
+  color: #ffffff;
 }
 
-/* Chart Container */
+/* === Chart Container === */
 .chart-container {
-  position: relative;
-  min-height: 320px;
   width: 100%;
+  min-height: 350px;
 }
 
-/* Top Users List */
-.top-users-list {
-  list-style: none;
-  padding: 0;
-  margin-top: 1rem;
+/* === Scrollbar Customization === */
+.admin-main-content::-webkit-scrollbar {
+  width: 10px;
+}
+.admin-main-content::-webkit-scrollbar-thumb {
+  background-color: #00ffff88;
+  border-radius: 5px;
+}
+.admin-main-content::-webkit-scrollbar-track {
+  background: transparent;
 }
 
-.top-users-list li {
-  background-color: #f0f0f0;
-  padding: 0.85rem 1.2rem;
-  margin-bottom: 0.6rem;
-  border-left: 4px solid #9b59b6;
-  border-radius: 6px;
-  font-size: 0.95rem;
-  color: #2d3436;
-  transition: background-color 0.3s ease;
-}
-
-.top-users-list li:hover {
-  background-color: #e4e4e4;
-}
-
-/* Responsive Adjustments */
+/* === Responsive === */
 @media (max-width: 768px) {
   .admin-main-content {
-    padding: 2rem 1rem;
+    padding: 1rem;
   }
 
   .section-title {
-    font-size: 1.75rem;
+    font-size: 1.5rem;
   }
 
   .chart-card {
-    padding: 1.25rem;
+    padding: 1rem;
   }
 
   .chart-container {
-    min-height: 250px;
+    min-height: 280px;
   }
-}
-body.dark-theme .chart-card {
-  background: linear-gradient(160deg, #1a1a2e, #0f3460);
-  color: #f1f1f1;
-  border-color: #333;
 }

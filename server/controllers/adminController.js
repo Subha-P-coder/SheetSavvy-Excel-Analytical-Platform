@@ -3,6 +3,7 @@ import User from '../models/userModel.js';
 import ExcelData from '../models/excelData.js';
 
 
+
 // GET /admin/all-users
 export const getAllUsers = async (req, res) => {
   try {
@@ -69,11 +70,13 @@ export const deleteFileById = async (req, res) => {
 };
 
 
+
+
 export const getAdminAnalytics = async (req, res) => {
   try {
     const past30Days = moment().subtract(30, 'days').toDate();
 
-    // 1. Uploads per day (fill missing days)
+    // 1. Uploads per day
     const rawUploads = await ExcelData.aggregate([
       { $match: { createdAt: { $gte: past30Days } } },
       {
@@ -104,7 +107,7 @@ export const getAdminAnalytics = async (req, res) => {
       { $limit: 5 },
       {
         $lookup: {
-          from: 'users', 
+          from: 'users',
           localField: '_id',
           foreignField: '_id',
           as: 'user'
@@ -119,8 +122,8 @@ export const getAdminAnalytics = async (req, res) => {
         }
       }
     ]);
-    
-    // 3. Chart/Insight usage
+
+    // 3. Chart & Insight usage count
     const chartStats = await ExcelData.aggregate([
       {
         $group: {
@@ -131,9 +134,8 @@ export const getAdminAnalytics = async (req, res) => {
       }
     ]);
 
-    // 4. User growth (fill 8 weeks)
+    // 4. Weekly User Growth (last 8 weeks)
     const startDate = moment().subtract(8, 'weeks').startOf('isoWeek').toDate();
-
     const rawUserGrowth = await User.aggregate([
       { $match: { createdAt: { $gte: startDate } } },
       {
@@ -162,13 +164,18 @@ export const getAdminAnalytics = async (req, res) => {
       });
     }
 
+
+
+    // Final response
     res.json({
       success: true,
       uploadsPerDay,
       mostActiveUsers,
       chartStats: chartStats[0] || { totalCharts: 0, totalInsights: 0 },
-      userGrowth
+      userGrowth,
+     
     });
+
   } catch (err) {
     console.error("Analytics Error:", err);
     res.status(500).json({ success: false, message: "Failed to fetch analytics" });

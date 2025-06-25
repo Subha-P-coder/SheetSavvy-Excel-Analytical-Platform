@@ -1,90 +1,76 @@
 import React, { useEffect, useState, useContext } from 'react';
 import axios from 'axios';
-import { Line, Doughnut } from 'react-chartjs-2';
-import { AppContext } from '../../context/AppContext.jsx';
 import AdminNavbar from '../../components/Admin/AdminNavbar.jsx';
 import AdminSidebar from '../../components/Admin/AdminSidebar.jsx';
-import { useLocation } from 'react-router-dom'; 
+import Charts from '../../components/Charts.jsx';
+import { AppContext } from '../../context/AppContext.jsx';
 import '../../styles/AdminAnalytics.css';
-
-import {
-  Chart as ChartJS,
-  CategoryScale,
-  LinearScale,
-  BarElement,
-  LineElement,
-  PointElement,
-  ArcElement,
-  Title,
-  Tooltip,
-  Legend,
-} from 'chart.js';
-
-ChartJS.register(
-  CategoryScale,
-  LinearScale,
-  BarElement,
-  LineElement,
-  PointElement,
-  ArcElement,
-  Title,
-  Tooltip,
-  Legend
-);
 
 const AdminAnalytics = () => {
   const { backendUrl } = useContext(AppContext);
-  const location = useLocation(); 
   const [analytics, setAnalytics] = useState(null);
+  const [loading, setLoading] = useState(true);
 
   useEffect(() => {
     if (!backendUrl) return;
+
     axios
       .get(`${backendUrl}/api/admin/analytics`, { withCredentials: true })
-      .then((res) => setAnalytics(res.data))
-      .catch((err) => console.error('Analytics fetch error:', err));
-  }, [backendUrl, location.pathname]); 
+      .then((res) => {
+        setAnalytics(res.data);
+        setLoading(false);
+      })
+      .catch((err) => {
+        console.error('Analytics fetch error:', err);
+        setLoading(false);
+      });
+  }, [backendUrl]);
 
-  const uploadData = {
-    labels: analytics?.uploadsPerDay?.map((d) => d._id) || [],
-    datasets: [
-      {
-        label: 'Uploads Per Day',
-        data: analytics?.uploadsPerDay?.map((d) => d.count) || [],
-        backgroundColor: 'rgba(54, 162, 235, 0.5)',
-        borderColor: 'rgba(54, 162, 235, 1)',
-        fill: false,
-        tension: 0.4,
-      },
-    ],
-  };
+  if (loading) {
+    return (
+      <div className="admin-layout">
+        <AdminNavbar />
+        <div className="admin-body">
+          <AdminSidebar />
+          <div className="admin-main-content">
+            <h2 className="section-title">📊 Admin Analytics Dashboard</h2>
+            <p style={{ fontSize: '1.2rem', color: '#888', marginTop: '2rem' }}>Loading analytics data...</p>
+          </div>
+        </div>
+      </div>
+    );
+  }
 
-  const usageData = {
-    labels: ['Charts', 'Insights'],
-    datasets: [
-      {
-        label: 'Usage Count',
-        data: [
-          analytics?.chartStats?.totalCharts || 0,
-          analytics?.chartStats?.totalInsights || 0,
-        ],
-        backgroundColor: ['#36a2eb', '#ff6384'],
-        borderWidth: 1,
-      },
-    ],
-  };
+  if (!analytics) return null;
 
-  const chartOptions = {
-    responsive: true,
-    maintainAspectRatio: false,
-    plugins: {
-      legend: { position: 'top' },
-      title: { display: false },
-    },
-    scales: {
-      y: { beginAtZero: true },
-    },
-  };
+  // === Data Preparation ===
+  const uploadsPerUser = analytics.mostActiveUsers?.map(user => ({
+    user: user.name,
+    uploads: user.uploads
+  })) || [];
+
+  const dailyUploads = analytics.uploadsPerDay?.map(item => ({
+    date: item._id,
+    count: item.count
+  })) || [];
+
+  const chartInsightStats = [
+    { type: 'Charts', count: analytics.chartStats?.totalCharts || 0 },
+    { type: 'Insights', count: analytics.chartStats?.totalInsights || 0 },
+  ];
+
+  const featureUsage = [
+    { type: 'Uploads', count: analytics.totalUploads || 0 },
+    { type: 'Charts', count: analytics.chartStats?.totalCharts || 0 },
+    { type: 'Insights', count: analytics.chartStats?.totalInsights || 0 },
+  ];
+
+  const bubbleData = analytics.mostActiveUsers?.map(user => ({
+    name: user.name,
+    uploads: user.uploads,
+    insights: user.insightCount || 0,
+    chartCount: user.chartCount || 0,
+  })) || [];
 
   return (
     <div className="admin-layout">
@@ -92,44 +78,67 @@ const AdminAnalytics = () => {
       <div className="admin-body">
         <AdminSidebar />
         <div className="admin-main-content">
-          <h2 className="section-title">Admin Analytics</h2>
+          <h2 className="section-title">📊 Admin Analytics Dashboard</h2>
 
           <div className="analytics-grid">
+
+            {/* Uploads Per User */}
             <div className="chart-card">
-              <h3>Daily Uploads</h3>
-              {uploadData.labels.length === 0 ? (
-                <p>No upload data available.</p>
-              ) : (
-                <div className="chart-container">
-                  <Line data={uploadData} options={chartOptions} />
-                </div>
-              )}
+              <h3>📦 Uploads Per User (3D Bar)</h3>
+              <Charts
+                type="bar3d"
+                data={uploadsPerUser}
+                xField="user"
+                yField="uploads"
+                rField="uploads"
+              />
             </div>
 
+            {/* Daily Uploads */}
             <div className="chart-card">
-              <h3>Chart vs Insight Usage</h3>
-              <div className="chart-container">
-                <Doughnut
-                  data={usageData}
-                  options={{ responsive: true, maintainAspectRatio: false }}
-                />
-              </div>
+              <h3>📈 Daily Uploads</h3>
+              <Charts
+                type="line"
+                data={dailyUploads}
+                xField="date"
+                yField="count"
+              />
             </div>
 
+            {/* Chart vs Insight Usage */}
             <div className="chart-card">
-              <h3>Top Active Users</h3>
-              {analytics?.mostActiveUsers?.length > 0 ? (
-                <ul className="top-users-list">
-                  {analytics.mostActiveUsers.map((user, index) => (
-                    <li key={index}>
-                      <strong>{user.name}</strong> ({user.email}) — {user.uploads} uploads
-                    </li>
-                  ))}
-                </ul>
-              ) : (
-                <p>No active users data available.</p>
-              )}
+              <h3>📊 Chart vs Insight Usage</h3>
+              <Charts
+                type="doughnut"
+                data={chartInsightStats}
+                xField="type"
+                yField="count"
+              />
             </div>
+
+            {/* Feature Usage */}
+            <div className="chart-card">
+              <h3>📌 Platform Feature Usage</h3>
+              <Charts
+                type="polar"
+                data={featureUsage}
+                xField="type"
+                yField="count"
+              />
+            </div>
+
+            {/* Uploads vs Insights vs Charts */}
+            <div className="chart-card">
+              <h3>🎈 Uploads vs Insights vs Charts (Bubble)</h3>
+              <Charts
+                type="bubble"
+                data={bubbleData}
+                xField="uploads"
+                yField="insights"
+                rField="chartCount"
+              />
+            </div>
+
           </div>
         </div>
       </div>
