@@ -13,7 +13,6 @@ const AdminAnalytics = () => {
 
   useEffect(() => {
     if (!backendUrl) return;
-
     axios
       .get(`${backendUrl}/api/admin/analytics`, { withCredentials: true })
       .then((res) => {
@@ -82,30 +81,38 @@ const AdminAnalytics = () => {
 
           <div className="analytics-grid">
 
-            {/* Uploads Per User */}
+            {/* Chart 1: Uploads Per User (3D Bar) */}
             <div className="chart-card">
               <h3>📦 Uploads Per User (3D Bar)</h3>
-              <Charts
-                type="bar3d"
-                data={uploadsPerUser}
-                xField="user"
-                yField="uploads"
-                rField="uploads"
-              />
+              {uploadsPerUser.length > 0 ? (
+                <Charts
+                  type="bar3d"
+                  data={uploadsPerUser}
+                  xField="user"
+                  yField="uploads"
+                  rField="uploads"
+                />
+              ) : (
+                <p>No upload user data available.</p>
+              )}
             </div>
 
-            {/* Daily Uploads */}
+            {/* Chart 2: Daily Uploads */}
             <div className="chart-card">
               <h3>📈 Daily Uploads</h3>
-              <Charts
-                type="line"
-                data={dailyUploads}
-                xField="date"
-                yField="count"
-              />
+              {dailyUploads.length > 0 ? (
+                <Charts
+                  type="line"
+                  data={dailyUploads}
+                  xField="date"
+                  yField="count"
+                />
+              ) : (
+                <p>No daily upload data.</p>
+              )}
             </div>
 
-            {/* Chart vs Insight Usage */}
+            {/* Chart 3: Chart vs Insight */}
             <div className="chart-card">
               <h3>📊 Chart vs Insight Usage</h3>
               <Charts
@@ -116,7 +123,7 @@ const AdminAnalytics = () => {
               />
             </div>
 
-            {/* Feature Usage */}
+            {/* Chart 4: Platform Feature Usage */}
             <div className="chart-card">
               <h3>📌 Platform Feature Usage</h3>
               <Charts
@@ -127,7 +134,7 @@ const AdminAnalytics = () => {
               />
             </div>
 
-            {/* Uploads vs Insights vs Charts */}
+            {/* Chart 5: Uploads vs Insights vs Charts */}
             <div className="chart-card">
               <h3>🎈 Uploads vs Insights vs Charts (Bubble)</h3>
               <Charts
