@@ -63,7 +63,7 @@ const UploadExcel = () => {
 
           <div className="upload-container">
             
-            <input type="file" accept=".xlsx" onChange={handleFileChange} />
+            <input type="file" accept=".xlsx" onChange={handleFileChange} name='file'/>
             <button onClick={handleUpload} disabled={!file}>
               <FaUpload style={{ marginRight: '8px' }} />
               Upload Excel
