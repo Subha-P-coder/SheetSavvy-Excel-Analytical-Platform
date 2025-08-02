@@ -5,11 +5,16 @@ export const generateChartInsight = async (req, res) => {
   try {
     const { fileId, question } = req.body;
     if (!fileId || !question) {
-      return res.status(400).json({ success: false, message: "Missing file ID or question" });
+      return res
+        .status(400)
+        .json({ success: false, message: "Missing file ID or question" });
     }
 
     const record = await ExcelData.findById(fileId);
-    if (!record) return res.status(404).json({ success: false, message: "File not found" });
+    if (!record)
+      return res
+        .status(404)
+        .json({ success: false, message: "File not found" });
 
     const fileData = record.data;
     const sampleData = JSON.stringify(fileData.slice(0, 20), null, 2);
@@ -61,13 +66,12 @@ Output ONLY the JSON object. Do not include markdown or explanations.
     );
 
     const rawText = aiResponse.data.choices?.[0]?.message?.content || "";
-   
 
     let parsed;
     try {
       const cleanText = rawText
-        .replace(/```json/g, '')
-        .replace(/```/g, '')
+        .replace(/```json/g, "")
+        .replace(/```/g, "")
         .trim();
 
       parsed = JSON.parse(cleanText);
@@ -91,7 +95,6 @@ Output ONLY the JSON object. Do not include markdown or explanations.
       answer: parsed.answer || "No answer generated.",
       suggestedChart: parsed.suggestedChart || null,
     });
-
   } catch (err) {
     console.error("❌ AI processing error:", err.response?.data || err.message);
     res.status(500).json({ success: false, message: "AI analysis failed" });

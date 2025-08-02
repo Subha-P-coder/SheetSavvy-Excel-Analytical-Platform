@@ -15,7 +15,7 @@ const ManageUsers = () => {
       .get(`${backendUrl}/api/admin/all-users`, { withCredentials: true })
       .then((res) => setUsers(res.data.users))
       .catch((err) => console.error(err));
-  }, []);
+  }, [backendUrl]);
 
   const handleDelete = async (id) => {
     try {

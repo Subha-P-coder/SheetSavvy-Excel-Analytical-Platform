@@ -4,43 +4,42 @@ import axios from "axios";
 import HistoryCard from "../../components/HistoryCard.jsx";
 import { useNavigate } from "react-router-dom";
 import { toast } from "react-toastify";
-import Sidebar from '../../components/Sidebar.jsx';
-import DashNavbar from '../../components/DashNavbar.jsx';
-import '../../styles/History.css';
+import Sidebar from "../../components/Sidebar.jsx";
+import DashNavbar from "../../components/DashNavbar.jsx";
+import "../../styles/History.css";
 
 const History = () => {
   const { backendUrl, isLoggedIn } = useContext(AppContext);
   const [records, setRecords] = useState([]);
   const navigate = useNavigate();
-  
-  const fetchHistory = async () => {
-    try {
-      const res = await axios.get(`${backendUrl}/api/excel/history`, {
-        withCredentials: true
-      });
-      setRecords(res.data);
-    } catch (err) {
-      toast.error(err.response?.data?.message || "Failed to fetch history");
-    }
-  };
 
   const handleDelete = async (id) => {
     try {
       await axios.delete(`${backendUrl}/api/excel/delete/${id}`, {
-        withCredentials: true
+        withCredentials: true,
       });
-      setRecords(prev => prev.filter(r => r._id !== id));
+      setRecords((prev) => prev.filter((r) => r._id !== id));
       toast.success("Record deleted");
-    } catch (err) {
+    } catch {
       toast.error("Failed to delete record");
     }
   };
 
   useEffect(() => {
     if (isLoggedIn) {
+      const fetchHistory = async () => {
+        try {
+          const res = await axios.get(`${backendUrl}/api/excel/history`, {
+            withCredentials: true,
+          });
+          setRecords(res.data);
+        } catch (err) {
+          toast.error(err.response?.data?.message || "Failed to fetch history");
+        }
+      };
       fetchHistory();
     }
-  }, [isLoggedIn]);
+  }, [backendUrl,isLoggedIn]);
 
   return (
     <div className="dashboard-wrapper">
@@ -52,7 +51,9 @@ const History = () => {
           <div className="history-grid">
             {records.length > 0 ? (
               records.map((record) => {
-                const keys = record.data?.[0] ? Object.keys(record.data[0]) : [];
+                const keys = record.data?.[0]
+                  ? Object.keys(record.data[0])
+                  : [];
                 const xKey = keys[0];
                 const yKey = keys[1];
 

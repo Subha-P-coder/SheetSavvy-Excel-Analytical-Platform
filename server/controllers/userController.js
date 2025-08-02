@@ -1,4 +1,4 @@
-import User from '../models/userModel.js';
+import User from "../models/userModel.js";
 import bcrypt from "bcryptjs";
 
 // to get all details
@@ -6,7 +6,7 @@ export const getUserData = async (req, res) => {
   try {
     const userId = req.user.id;
     const user = await User.findById(userId);
-    
+
     if (!user) {
       return res.json({
         success: false,
@@ -19,9 +19,9 @@ export const getUserData = async (req, res) => {
       userData: {
         name: user.name,
         email: user.email,
-        role: user.role,   
-        isAccountVerified: user.isAccountVerified
-      }
+        role: user.role,
+        isAccountVerified: user.isAccountVerified,
+      },
     });
   } catch (error) {
     return res.json({ success: false, message: error.message });
@@ -76,7 +76,7 @@ export const changePassword = async (req, res) => {
 export const deleteAccount = async (req, res) => {
   try {
     await User.findByIdAndDelete(req.user.id);
-    res.clearCookie("token"); 
+    res.clearCookie("token");
     res.status(200).json({ success: true, message: "Account deleted" });
   } catch (err) {
     console.error("Delete account error:", err);

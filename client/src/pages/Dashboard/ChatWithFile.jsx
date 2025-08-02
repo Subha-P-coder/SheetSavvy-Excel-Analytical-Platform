@@ -77,7 +77,7 @@ const ChatWithFile = () => {
       } else {
         toast.error(res.data.message || "AI error");
       }
-    } catch (err) {
+    } catch{
       toast.error("AI request failed");
     }
   };

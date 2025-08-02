@@ -18,7 +18,7 @@ const AdminFiles = () => {
       .get(`${backendUrl}/api/admin/all-files`, { withCredentials: true })
       .then((res) => setFiles(res.data.files))
       .catch((err) => console.error("Fetch files failed:", err));
-  }, []);
+  }, [backendUrl]);
 
   const handleDelete = async (id) => {
     try {
@@ -38,9 +38,10 @@ const AdminFiles = () => {
   };
 
   const filteredFiles = files
-    .filter((file) =>
-      file.name.toLowerCase().includes(searchTerm.toLowerCase()) ||
-      file.uploadedBy?.name?.toLowerCase().includes(searchTerm.toLowerCase())
+    .filter(
+      (file) =>
+        file.name.toLowerCase().includes(searchTerm.toLowerCase()) ||
+        file.uploadedBy?.name?.toLowerCase().includes(searchTerm.toLowerCase())
     )
     .sort((a, b) => {
       const aVal = a[sortField];
@@ -78,10 +79,16 @@ const AdminFiles = () => {
             <table className="admin-table">
               <thead>
                 <tr>
-                  <th onClick={() => handleSort("name")}>File Name <FaSort /></th>
+                  <th onClick={() => handleSort("name")}>
+                    File Name <FaSort />
+                  </th>
                   <th>Uploaded By</th>
-                  <th onClick={() => handleSort("rowCount")}>Rows <FaSort /></th>
-                  <th onClick={() => handleSort("uploadDate")}>Uploaded At <FaSort /></th>
+                  <th onClick={() => handleSort("rowCount")}>
+                    Rows <FaSort />
+                  </th>
+                  <th onClick={() => handleSort("uploadDate")}>
+                    Uploaded At <FaSort />
+                  </th>
                   <th>Action</th>
                 </tr>
               </thead>
@@ -94,7 +101,10 @@ const AdminFiles = () => {
                       <td>{file.rowCount}</td>
                       <td>{new Date(file.uploadDate).toLocaleString()}</td>
                       <td>
-                        <button className="delete-btn" onClick={() => handleDelete(file._id)}>
+                        <button
+                          className="delete-btn"
+                          onClick={() => handleDelete(file._id)}
+                        >
                           <FaTrash /> Delete
                         </button>
                       </td>

@@ -1,10 +1,10 @@
-import React, { useEffect, useState, useContext } from 'react';
-import axios from 'axios';
-import AdminNavbar from '../../components/Admin/AdminNavbar.jsx';
-import AdminSidebar from '../../components/Admin/AdminSidebar.jsx';
-import Charts from '../../components/Charts.jsx';
-import { AppContext } from '../../context/AppContext.jsx';
-import '../../styles/AdminAnalytics.css';
+import React, { useEffect, useState, useContext } from "react";
+import axios from "axios";
+import AdminNavbar from "../../components/Admin/AdminNavbar.jsx";
+import AdminSidebar from "../../components/Admin/AdminSidebar.jsx";
+import Charts from "../../components/Charts.jsx";
+import { AppContext } from "../../context/AppContext.jsx";
+import "../../styles/AdminAnalytics.css";
 
 const AdminAnalytics = () => {
   const { backendUrl } = useContext(AppContext);
@@ -20,7 +20,7 @@ const AdminAnalytics = () => {
         setLoading(false);
       })
       .catch((err) => {
-        console.error('Analytics fetch error:', err);
+        console.error("Analytics fetch error:", err);
         setLoading(false);
       });
   }, [backendUrl]);
@@ -33,7 +33,9 @@ const AdminAnalytics = () => {
           <AdminSidebar />
           <div className="admin-main-content">
             <h2 className="section-title">📊 Admin Analytics Dashboard</h2>
-            <p style={{ fontSize: '1.2rem', color: '#888', marginTop: '2rem' }}>Loading analytics data...</p>
+            <p style={{ fontSize: "1.2rem", color: "#888", marginTop: "2rem" }}>
+              Loading analytics data...
+            </p>
           </div>
         </div>
       </div>
@@ -43,33 +45,36 @@ const AdminAnalytics = () => {
   if (!analytics) return null;
 
   // === Data Preparation ===
-  const uploadsPerUser = analytics.mostActiveUsers?.map(user => ({
-    user: user.name,
-    uploads: user.uploads
-  })) || [];
+  const uploadsPerUser =
+    analytics.mostActiveUsers?.map((user) => ({
+      user: user.name,
+      uploads: user.uploads,
+    })) || [];
 
-  const dailyUploads = analytics.uploadsPerDay?.map(item => ({
-    date: item._id,
-    count: item.count
-  })) || [];
+  const dailyUploads =
+    analytics.uploadsPerDay?.map((item) => ({
+      date: item._id,
+      count: item.count,
+    })) || [];
 
   const chartInsightStats = [
-    { type: 'Charts', count: analytics.chartStats?.totalCharts || 0 },
-    { type: 'Insights', count: analytics.chartStats?.totalInsights || 0 },
+    { type: "Charts", count: analytics.chartStats?.totalCharts || 0 },
+    { type: "Insights", count: analytics.chartStats?.totalInsights || 0 },
   ];
 
   const featureUsage = [
-    { type: 'Uploads', count: analytics.totalUploads || 0 },
-    { type: 'Charts', count: analytics.chartStats?.totalCharts || 0 },
-    { type: 'Insights', count: analytics.chartStats?.totalInsights || 0 },
+    { type: "Uploads", count: analytics.totalUploads || 0 },
+    { type: "Charts", count: analytics.chartStats?.totalCharts || 0 },
+    { type: "Insights", count: analytics.chartStats?.totalInsights || 0 },
   ];
 
-  const bubbleData = analytics.mostActiveUsers?.map(user => ({
-    name: user.name,
-    uploads: user.uploads,
-    insights: user.insightCount || 0,
-    chartCount: user.chartCount || 0,
-  })) || [];
+  const bubbleData =
+    analytics.mostActiveUsers?.map((user) => ({
+      name: user.name,
+      uploads: user.uploads,
+      insights: user.insightCount || 0,
+      chartCount: user.chartCount || 0,
+    })) || [];
 
   return (
     <div className="admin-layout">
@@ -80,7 +85,6 @@ const AdminAnalytics = () => {
           <h2 className="section-title">📊 Admin Analytics Dashboard</h2>
 
           <div className="analytics-grid">
-
             {/* Chart 1: Uploads Per User (3D Bar) */}
             <div className="chart-card">
               <h3>📦 Uploads Per User (3D Bar)</h3>
@@ -145,7 +149,6 @@ const AdminAnalytics = () => {
                 rField="chartCount"
               />
             </div>
-
           </div>
         </div>
       </div>
