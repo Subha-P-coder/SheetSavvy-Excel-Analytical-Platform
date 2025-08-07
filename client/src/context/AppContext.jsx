@@ -20,23 +20,24 @@ export const AppContextProvider = (props) => {
     setIsDarkTheme(prev => !prev);
   };
 
-  useEffect(() => {
     const getUserData = async () => {
-      try {
-        const { data } = await axios.get(`${backendUrl}/api/user/me`, {
-          withCredentials: true,
-        });
+    try {
+      const { data } = await axios.get(`${backendUrl}/api/user/me`, {
+        withCredentials: true,
+      });
 
-        if (data.success) {
-          setUserData(data.userData);
-        } else {
-          toast.error(data.message);
-        }
-      } catch (err) {
-        toast.error(err.response?.data?.message || "Failed to fetch user data");
+      if (data.success) {
+        setUserData(data.userData);
+      } else {
+        toast.error(data.message);
       }
-    };
+    } catch (err) {
+      toast.error(err.response?.data?.message || "Failed to fetch user data");
+    }
+  };
 
+ 
+  useEffect(() => {
     const getAuthState = async () => {
       try {
         const { data } = await axios.get(`${backendUrl}/api/auth/is-auth`, {
@@ -44,7 +45,7 @@ export const AppContextProvider = (props) => {
         });
         if (data.success) {
           setIsLoggedIn(true);
-          getUserData();
+          getUserData(); 
         }
       } catch (error) {
         toast.error(error.message);
@@ -52,7 +53,7 @@ export const AppContextProvider = (props) => {
     };
 
     getAuthState();
-  }, [backendUrl]);
+  });
 
   const value = {
     backendUrl,
@@ -63,7 +64,8 @@ export const AppContextProvider = (props) => {
     isDarkTheme,
     toggleTheme,
     recordId,
-    setRecordId
+    setRecordId,
+    getUserData
   };
 
   return (
