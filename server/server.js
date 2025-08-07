@@ -21,9 +21,9 @@ const port = process.env.PORT || 4000;
 
 connectDB();
 
-app.use(express.json());
 app.use(cors({ origin: allowedOrigins, credentials: true }));
 app.use(cookieParser());
+app.use(express.json());
 
 app.use("/api/auth", authRoutes);
 app.use("/api/user", userRoutes);

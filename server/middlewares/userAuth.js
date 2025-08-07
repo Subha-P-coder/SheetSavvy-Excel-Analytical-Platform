@@ -12,6 +12,7 @@ const userAuth = async (req, res, next) => {
   // Then check Authorization header (Bearer token)
   else if (
     req.headers.authorization &&
+    typeof req.headers.authorization === "string" &&
     req.headers.authorization.startsWith("Bearer ")
   ) {
     token = req.headers.authorization.split(" ")[1];
